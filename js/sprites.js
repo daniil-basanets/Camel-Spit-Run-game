@@ -27,7 +27,7 @@ SpriteSheetArtist = function (spritesheet, cells) {
 
 SpriteSheetArtist.prototype = {
     advance: function () {
-        if (this.cellIndex == this.cells.length-1) {
+        if (this.cellIndex == this.cells.length - 1) {
             this.cellIndex = 0;
         }
         else {
@@ -41,7 +41,7 @@ SpriteSheetArtist.prototype = {
         context.drawImage(this.spritesheet, cell.left, cell.top,
             cell.width, cell.height,
             sprite.left, sprite.top,
-            cell.width, cell.height);
+            sprite.width, sprite.height);
     }
 };
 
@@ -62,7 +62,7 @@ SpriteAnimator.prototype = {
         sprite.artist.cells = this.cells;
         sprite.artist.cellIndex = 0;
 
-        setTimeout(function() {
+        setTimeout(function () {
             sprite.artist.cells = originalCells;
             sprite.artist.cellIndex = originalIndex;
 
@@ -92,6 +92,7 @@ var Sprite = function (type, artist, behaviors) {
     this.top = 0;
     this.width = 10;
     this.height = 10;
+    this.offset = 0;
     this.velocityX = 0;
     this.velocityY = 0;
     this.opacity = 1.0;
@@ -111,13 +112,13 @@ Sprite.prototype = {
         context.restore();
     },
 
-    update: function (time, fps) {
+    update: function (time, fps, context) {
         for (var i = 0; i < this.behaviors.length; ++i) {
             if (this.behaviors[i] === undefined) { // Modified while looping?
                 return;
             }
 
-            this.behaviors[i].execute(this, time, fps);
+            this.behaviors[i].execute(this, time, fps, context);
         }
     }
 };

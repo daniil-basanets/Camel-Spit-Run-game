@@ -1,44 +1,134 @@
 <!DOCTYPE html>
-   <!-- Head........................................................-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <title>CAMEL: Spit & Run</title>
+    <link rel='stylesheet' href='css/normalize.css'/>
+    <link rel='stylesheet' href='css/game.css'/>
+    <link rel='stylesheet' href='css/progressbar.css'/>
+</head>
 
-	<head>
-	   <title>Snail Bait</title>
-      <link rel='stylesheet' href='game.css'/>
-   </head>
+<body>
+<!-- Wrapper..................................................-->
 
-   <!-- Body........................................................-->
+<div id='wrapper'>
+    <div id="level-stats" class="level-stats" >
+        <h2>Конец уровня</h2>
+        <h4>Результат:
+            <div id="level-stats-score"></div>
+        </h4>
+        <div id="restart-level-btn" class="level-stats-element">
+            <img src="images/restart.gif">Заново</div>
+        <div id="next-level-btn" class="level-stats-element">
+            <img src="images/next.gif">Следующий уровень</div>
+        <div id="to-menu-btn" class="level-stats-element">
+            <img src="images/exit.gif">Выйти в меню</div>
+    </div>
+    <div class="start_wr">
+        <div>
+            <div class="game_logo">
+                <div class="top">Camel</div>
+                <div class="bottom">spit & run</div>
+            </div>
+            <div class="game_menu">
+                <div class="sound_settings_wr">
+                    <div>Хочешь слышать музыку и звуки?</div>
+                    <div>
+                        <span class="sound_yesno" id="sound_yes">Да</span>
+                        <span class="sound_yesno" id="sound_no">Нет</span>
+                    </div>
+                </div>
+                <button class="menu_btn" id="continue_btn">Продолжить</button>
+                <button class="menu_btn" id="start_btn">Старт</button>
+                <button class="menu_btn" id="settings_btn">Настройки <span class="arrows"></span></button>
+                <div class="settings_wr">
+                    <div>
+                        <span>Музыка</span>
+                        <button class="sound_btn sound_btn_off" id="music_btn"></button>
+                    </div>
+                    <div>
+                        <span>Звуки</span>
+                        <button class="sound_btn sound_btn_off" id="sounds_btn"></button>
+                    </div>
+                </div>
+                <button class="menu_btn" id="statistics_btn">Статистика</button>
+                <div class="statistics">
+                    <div class="statistics_inner">
+                        Статистика
+                        <table id="statistics_table" class="t1" ></table>
+                        <button class="menu_btn" id="go_menu_btn">Назад</button>
+                    </div>
+                </div>
+                <button class="menu_btn" id="exit_btn">Выход</button>
+            </div>
+        </div>
+    </div>
 
-   <body>
-      <!-- Wrapper..................................................-->
+    <!-- Toast...................................................-->
 
-      <div id='wrapper'>
-         <!-- Toast...................................................-->
+    <div id='toast'>
+    </div>
 
-         <div id='toast'>
-         </div>
-   
-         <!-- Header..................................................-->
+    <!-- Header..................................................-->
 
-         <div id='header'>
-            <div id='score'>0</div>
-            <div id='fps'></div>
-         </div>
-            
-         <!-- Arena..................................................-->
+    <div id='header'>
+        <div id='score'>Score: <text id="score_element">0 </text></div>
+        <div id='fps'></div>
+        <!--Progress bar............................................... -->
+        <div id="progress">
+            <div id="water">
+                <img src="progressbar/drop.png">
+                <div class="progressBar">
+                    <div></div>
+                </div>
+            </div>
+            <div id="health">
+                <img src="progressbar/cross.png">
 
-         <div id='arena'>
-            <!-- The game canvas.....................................-->
+                <div class="progressBar">
+                    <div style="background-color:red"></div>
+                </div>
+            </div>
+        </div>
 
-            <canvas id='game-canvas'>
-               Your browser does not support HTML5 Canvas.
-            </canvas>
-         </div>
-      </div>
+        <div id="controls"
+             style="position: absolute; z-index: 1000; bottom: 0; right: 0;  width: auto; height: 20%; max-height: 100px">
+            <img id="jumpButton"
+                 style="left: 0%; width: auto; height: 100%;"
+                 src="images/ButtonJump.png"/>&nbsp;&nbsp;&nbsp;&nbsp;
+            <img id="spitButton"
+                 style="left:50%; width: auto; height: 100%;"
+                 src="images/ButtonSpit.png"/>
+        </div>
+    </div>
 
-      <!-- JavaScript................................................-->
 
-      <script src='js/requestNextAnimationFrame.js'></script>
-      <script src='js/sprites.js'></script>
-      <script src='game.js'></script>
-  </body>
+    <!-- Arena..................................................-->
+
+    <div id='arena'>
+        <!-- The game canvas.....................................-->
+
+        <canvas id='game-canvas'>
+            Your browser does not support HTML5 Canvas.
+
+        </canvas>
+
+    </div>
+
+
+</div>
+
+
+<!-- JavaScript................................................-->
+
+<script src='js/jquery-1.11.2.min.js'></script>
+<!--<script src='js/cordova.js'></script> not nessecary in appl-->
+<script src='js/stopwatch.js'></script>
+<script src='js/animationTimer.js'></script>
+<script src='progressbar/progressbar.js'></script>
+<script src='js/requestNextAnimationFrame.js'></script>
+<script src='js/sprites.js'></script>
+<script src='js/game.js'></script>
+
+</body>
 </html>

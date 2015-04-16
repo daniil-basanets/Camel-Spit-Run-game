@@ -1,0 +1,45 @@
+.progressBar {
+
+    float: right;
+    width: 85%;
+    height: 22px;
+    border: 1px solid #111;
+    background-color: #292929;
+
+}
+
+.progressBar div {
+    height: 100%;
+    color: #fff;
+    text-align: right;
+    line-height: 22px;
+    width: 100%;
+    background-color: #0099ff;
+}
+
+#progress {
+    width: 50%;
+    position: absolute;
+    height: 22px;
+    z-index: 1000;
+    right: 10px;
+    top: 10px;
+}
+
+#health {
+    width: 48%;
+    float: right;
+
+}
+
+#water {
+    width: 48%;
+    float: left;
+    /*margin-left: 25px;*/
+}
+
+img {
+    height: auto;
+    width: 10%;
+    /*margin-left: -25px;*/
+}
