@@ -1,0 +1,117 @@
+/**
+ * Created by Daniil on 16.04.2015.
+ */
+describe('Тесты для подсчета очков', function () {
+    var camelGame = new CamelGame();
+    camelGame.canvas = createElement('Canvas');
+    camelGame.canvas.width = 1280;
+    camelGame.canvas.height = 768;
+    camelGame.context = camelGame.canvas.getContext('2d');
+    var sprite = new Sprite('oasis', 'oasisArtist', null);
+    sprite.score = 90;
+
+
+    describe('очки должны быть определены', function () {
+
+        it('до инициализации - не определены', function () {
+            expect(camelGame.score).toBeUndefined();
+        });
+
+        camelGame.score = 100;
+        it('После инициализации - определены', function () {
+            expect(camelGame.score).toBeDefined();
+        });
+
+        it('После инициализации - определены и равняться 100', function () {
+            expect(camelGame.score).toBe(100);
+        });
+
+    });
+
+    describe('Когда отнимаются очки', function () {
+
+        it('Должно остаться 23,5', function () {
+            expect(camelGame.runner.collideBehavior.adjustScore(sprite)).toBe(23.5);
+        });
+
+        it('Должно остаться 0', function () {
+            expect(camelGame.runner.collideBehavior.adjustScore(sprite)).toBe(0);
+        });
+
+        it('Должно остаться 0', function () {
+            expect(camelGame.runner.collideBehavior.adjustScore(sprite)).toBe(0);
+        });
+
+        it('Должно остаться не менее 0', function () {
+            expect(camelGame.runner.collideBehavior.adjustScore(sprite)).not.toBeLessThan(0);
+        });
+
+    });
+
+    var sprite1 = new Sprite('oasis', 'oasisArtist', null);
+
+    var sprite2 = new Sprite('oasis', 'oasisArtist', null);
+    sprite2.score = 45;
+    camelGame.score = 100;
+
+    describe('Когда прибавляются очки', function () {
+
+        it('Должно быть определено положение плевка и смещение', function () {
+            expect(camelGame.runner.spit.left).toBeDefined();
+            expect(camelGame.runner.spit.offsetLeft).toBeDefined();
+        });
+
+        it('Должно остаться 100 очков', function () {
+            expect(camelGame.runner.collideSpitBehavior.adjustScore(sprite1)).toBe(100);
+        });
+
+        it('Должно стать 145 очков', function () {
+            expect(camelGame.runner.collideSpitBehavior.adjustScore(sprite2)).toBe(145);
+        });
+
+        it('Должно стать не 145 очков', function () {
+            expect(camelGame.runner.collideSpitBehavior.adjustScore(sprite2)).not.toBe(145);
+        });
+
+        it('Должно стать больше около 200 очков', function () {
+            expect(camelGame.runner.collideSpitBehavior.adjustScore(sprite2)).toBeCloseTo(180, 200);
+        });
+
+        it('Должно стать более 220', function () {
+            expect(camelGame.runner.collideBehavior.adjustScore(sprite2)).toBeGreaterThan(220);
+        });
+
+    });
+
+    describe('Когда событие - кнопка выйти в меню', function () {
+        camelGame.exitLevels();
+
+        beforeEach(function () {
+            spyOn(camelGame, 'insertIntoDataBase');
+        });
+
+        it('Имя игрока должно быть определено', function () {
+            expect(camelGame.player_name).toBeDefined();
+        });
+
+        it('Имя игрока должна быть строка', function () {
+            expect(camelGame.player_name).toMatch(/string/);
+        });
+
+        it('Очки - число, должны быть определены', function () {
+            expect(camelGame.score).toMatch(/int/);
+            expect(camelGame.score).toBeDefined();
+        });
+
+        it('Должна вызваться функция', function () {
+            expect(camelGame.insertIntoDataBase(camelGame.player_name, camelGame.score)).toHaveBeenCalled();
+        });
+
+        camelGame.player_name = 'player';
+        camelGame.score = 90;
+
+        it('Должна вызваться функция c парамтерами', function () {
+            expect(camelGame.insertIntoDataBase(camelGame.player_name, camelGame.score)).toHaveBeenCalledWith('player', 90);
+        });
+    });
+});
